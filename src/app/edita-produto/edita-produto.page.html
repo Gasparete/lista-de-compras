@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title color="secondary">Editar Produto</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<!-- Formulário para adição ou edição de tarefa -->
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label position="floating">Item</ion-label>
+      <ion-input type="text" name="nome" [(ngModel)]="model.nome"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Quantidade</ion-label>
+      <ion-input type="number" name="quantidade" [(ngModel)]="model.quantidade"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Já comprei</ion-label>
+      <ion-checkbox name="status" [(ngModel)]="model.marcado"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="block" (click)="save()">Salvar</ion-button>
+
+</ion-content>

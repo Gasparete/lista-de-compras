@@ -11,6 +11,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'edita-produto',
+    loadChildren: () => import('./edita-produto/edita-produto.module').then( m => m.EditaProdutoPageModule)
+  },
 ];
 
 @NgModule({

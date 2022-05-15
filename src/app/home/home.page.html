@@ -1,20 +1,91 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title color="dark"> Lista de produtos </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<form (ngSubmit)="save()">
+  <ion-item>
+    <ion-label position="floating">Item</ion-label>
+    <ion-input
+      type="text"
+      name="nomeProduto"
+      [(ngModel)]="produto.nome"
+    ></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Quantidade</ion-label>
+    <ion-input
+      type="number"
+      name="quantidadeProduto"
+      [(ngModel)]="produto.quantidade"
+    ></ion-input>
+  </ion-item>
+  <ion-button expand="full" color="light" type="submit">
+    <ion-icon name="add-circle" color="success"></ion-icon> Adicionar
+  </ion-button>
+</form>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+<ion-content>
+  <ion-list *ngFor="let item of produtos">
+    <!--  Lista com sliding com os produtos cadastrados.
+      saiba mais sobre o ion-sliding em https://ionicframework.com/docs/api/item-sliding -->
+    <ion-item-sliding class="itens">
+      <!-- A ngClass tarefa-concluida colocará um tachado sobre o
+      nome da tarefa que for marcada como concluída a classe está no arquivo home.page.scss -->
+      <ion-item
+        [ngClass]="{'produto-comprado': item.produto.marcado }"
+        class=""
+      >
+        <ion-label>
+          <h1>{{ item.produto.nome }}</h1>
+          <p>{{ item.produto.quantidade }}</p>
+        </ion-label>
+        <ion-item>
+          <ion-icon
+            *ngIf="item.produto.marcado; else naoMarcado"
+            name="close-circle-outline"
+            color="danger"
+            size="large"
+            (click)="marcaProduto(item);"
+          >
+          </ion-icon>
+          <ng-template #naoMarcado>
+            <ion-icon
+              name="checkmark-circle-outline"
+              color="success"
+              size="large"
+              (click)="marcaProduto(item);"
+            >
+            </ion-icon>
+          </ng-template>
+        </ion-item>
+      </ion-item>
+      <!-- Botões de edição e exclusão só aparecerão quando o
+        usuário segurrar e arrastar o item para a esquerda da tela -->
+      <ion-item-options>
+        <ion-item-option color="transparent">
+          <!-- chama o método editaProduto passando o item para edição -->
+          <ion-icon
+            slot="start"
+            name="create-outline"
+            color="primary"
+            size="large"
+            (click)="editaProduto(item);"
+          ></ion-icon>
+        </ion-item-option>
+        <ion-item-option color="transparent">
+          <!-- chama o método removeProduto passando o item para exclusão -->
+          <ion-icon
+            slot="start"
+            name="trash-outline"
+            color="danger"
+            size="large"
+            (click)="removeProduto(item);"
+          ></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
+
 </ion-content>
