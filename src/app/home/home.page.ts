@@ -75,6 +75,7 @@ export class HomePage {
       this.salvarProduto()
       .then(async () => {
         this.exibeToast('Produto salvo');
+        this.ionViewDidEnter();
       })
       .catch(async () => {
         this.exibeToast('Erro ao salvar produto');
